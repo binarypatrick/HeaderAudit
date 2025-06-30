@@ -1,4 +1,4 @@
-name: Docker Image build
+name: Docker Build and Deploy Image
 
 on:
   push:
@@ -25,10 +25,9 @@ jobs:
           password: ${{ secrets.DOCKER_HUB_PASSWORD }}
 
       - name: Build and Push
+        if: ${{ ! startsWith(github.ref, 'refs/tags/') }}
         uses: docker/build-push-action@v4
         with:
           context: .
           push: true
-          tags: |
-            binarypatrick/header-audit:latest
-            binarypatrick/header-audit:${{ steps.vars.outputs.tag }}
+          tags: ${{ github.sha }}
