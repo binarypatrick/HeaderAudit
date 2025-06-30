@@ -1,6 +1,7 @@
 name: Docker Build and Deploy Image
 
 on:
+  workflow_deploy:
   push:
     tags:
       - 'v*.*.*'
