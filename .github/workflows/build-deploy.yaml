@@ -9,7 +9,7 @@ on:
 jobs:
   deploy-tagged:
     if: ${{ startsWith(github.ref, 'refs/tags/') }}
-    name: Tagged release deploy
+    name: Tagged Release Deploy
     runs-on: ubuntu-latest
     steps:
       - name: Checkout code
@@ -36,7 +36,7 @@ jobs:
           
   deploy-untagged:
     if: ${{ ! startsWith(github.ref, 'refs/tags/') }}
-    name: Tagged release deploy
+    name: Untagged Deploy
     runs-on: ubuntu-latest
     steps:
       - name: Checkout code
