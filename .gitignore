@@ -3,5 +3,6 @@
 .idea/
 bin/
 obj/
+out/
 [Pp]roperties/
 .DS_Store

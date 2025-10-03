@@ -1,18 +1,18 @@
 FROM mcr.microsoft.com/dotnet/sdk:9.0 AS build
-WORKDIR /app
+ENV DOTNET_CLI_TELEMETRY_OPTOUT=1
+ARG GIT_TAG=0.0.0
 
-# Copy everything
+WORKDIR /app
 COPY . ./
-# Restore as distinct layers
 RUN dotnet restore
-# Build and publish a release
-RUN dotnet publish -o out
+RUN dotnet publish -o out -p:AssemblyVersion=${GIT_TAG}
 
 # Build runtime image
 FROM mcr.microsoft.com/dotnet/aspnet:9.0
+ENV DOTNET_CLI_TELEMETRY_OPTOUT=1
+
 WORKDIR /app
 COPY --from=build /app/out .
-
 EXPOSE 8080
 
 ENTRYPOINT ["dotnet", "BinaryPatrick.HeaderAudit.dll"]
